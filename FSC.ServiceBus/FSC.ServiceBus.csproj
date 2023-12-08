@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{54E47DB8-5F0F-41A8-9F41-189F66655020}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FSC.ServiceBus</RootNamespace>
+    <AssemblyName>FSC.ServiceBus</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dispatch\DispatchBuilder.cs" />
+    <Compile Include="Dispatch\DispatchRegistrationBuilder.cs" />
+    <Compile Include="Dispatch\DispatchSender.cs" />
+    <Compile Include="Dispatch\MessageContext.cs" />
+    <Compile Include="Dispatch\MessageDispatcher.cs" />
+    <Compile Include="Management\Factories\ClientFactory.cs" />
+    <Compile Include="Management\Factories\IClientFactory.cs" />
+    <Compile Include="Management\MessageMetadataAccessor.cs" />
+    <Compile Include="Management\Senders\DeactivatedSender.cs" />
+    <Compile Include="Management\Senders\MessageSender.cs" />
+    <Compile Include="Management\Senders\UnavailableSender.cs" />
+    <Compile Include="Management\ServiceBusRegistry.cs" />
+    <Compile Include="Management\Wrappers\ComposedReceiverOptions.cs" />
+    <Compile Include="Management\Wrappers\IWrapper.cs" />
+    <Compile Include="Management\Wrappers\ReceiverWrapper.cs" />
+    <Compile Include="Management\Wrappers\SenderWrapper.cs" />
+    <Compile Include="MessageHelper.cs" />
+    <Compile Include="..\Shared\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="Reception\DuplicateEvenTypeIdDeclarationException.cs" />
+    <Compile Include="Reception\DuplicateSubscriptionHandlerDeclarationException.cs" />
+    <Compile Include="Reception\MessageIsMissingPayloadTypeIdException.cs" />
+    <Compile Include="Reception\MessageReceptionHandler.cs" />
+    <Compile Include="Reception\ReceptionBuilder.cs" />
+    <Compile Include="Reception\ReceptionRegistrationBuilder.cs" />
+    <Compile Include="ServiceBusBuilder.cs" />
+    <Compile Include="ServiceBusEngine.cs" />
+    <Compile Include="ServiceBusHost.cs" />
+    <Compile Include="ServiceCollectionExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FSC.ServiceBus.Abstractions\FSC.ServiceBus.Abstractions.csproj">
+      <Project>{70F1D4EB-98BB-480A-B1A1-F3DB138CF31C}</Project>
+      <Name>FSC.ServiceBus.Abstractions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Azure.Core">
+      <Version>1.26.0</Version>
+    </PackageReference>
+    <PackageReference Include="Azure.Messaging.ServiceBus">
+      <Version>7.11.1</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.14</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting">
+      <Version>7.0.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
